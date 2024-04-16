@@ -1,0 +1,11 @@
+{
+  "name": "@api/common",
+  "version": "1.0.0",
+  "description": "Common lib for api",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "rimraf ./build && etsc"
+  },
+  "author": "John Aira Feleo",
+  "license": "MIT"
+}
