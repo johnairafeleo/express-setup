@@ -7,9 +7,9 @@ import {
   applySorting,
 } from '../utils';
 import { User } from '../entity';
-import { UserRepository } from '../interface';
+import { UserRepository } from '@api/common';
 
-export class UserService implements UserRepository {
+export class UserService implements UserRepository<User> {
   constructor(private readonly userRepository: Repository<User>) {}
 
   async findAll(args: any) {

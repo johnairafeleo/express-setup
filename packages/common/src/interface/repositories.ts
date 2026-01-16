@@ -28,5 +28,5 @@ interface BaseAuthRepository<T, Args> {
   refreshToken?: (refreshToken: string) => Promise<AuthResponse>;
 }
 
-export type AuthRepository = BaseAuthRepository<User, Partial<User>>;
-export type UserRepository = BaseRepository<User, Partial<User>>;
+export type AuthRepository<T = any> = BaseAuthRepository<T, Partial<T>>;
+export type UserRepository<T = any> = BaseRepository<T, Partial<T>>;

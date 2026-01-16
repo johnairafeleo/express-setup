@@ -4,7 +4,7 @@
   "description": "Common lib for api",
   "main": "build/index.js",
   "scripts": {
-    "build": "rimraf ./build && etsc"
+    "build": "rimraf ./build && tsc"
   },
   "author": "John Aira Feleo",
   "license": "MIT"

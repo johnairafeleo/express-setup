@@ -46,23 +46,6 @@ server.use(morgan('dev'));
 // server.use(createRateLimitMiddleware());
 server.use('/api/v1/public', public_api);
 server.use('/api/v1/private', private_api);
-// establish database connection
-AppDataSource.initialize()
-  .then(() => {
-    console.log('Data Source has been initialized');
-  })
-  .catch((err) => {
-    console.error('Error during Data Source initialization:', err);
-  });
-
-// built-in middleware to handle urlencoded form data
-server.use(express.urlencoded({ extended: false }));
-
-// built-in middleware for json
-server.use(express.json());
-
-// middleware for cookie
-server.use(cookieParser());
 
 server.get('/', (req: Request, res: Response) => res.send(`Welcome to API`));
 
@@ -77,9 +60,18 @@ server.all('/*', (req: Request, res: Response, next: NextFunction) => {
 server.use(globalErrorHandler);
 
 async function startServer() {
-  server.listen(PORT, () => {
-    console.log(`Listening on Port ${PORT}...`);
-  });
+  try {
+    // establish database connection before starting server
+    await AppDataSource.initialize();
+    console.log('Data Source has been initialized');
+    
+    server.listen(PORT, () => {
+      console.log(`Listening on Port ${PORT}...`);
+    });
+  } catch (err) {
+    console.error('Error during Data Source initialization:', err);
+    process.exit(1);
+  }
 }
 
 startServer();
